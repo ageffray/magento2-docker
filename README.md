@@ -65,15 +65,15 @@ Please take care if you need to update the three lasts variables because they ar
 - M2SETUP_DB_USER : Magento database username (must be the same as mysql.env)
 - M2SETUP_DB_PASSWORD : Magento database password (must be the same as mysql.env)
 - M2SETUP_BASE_URL : Base url of website (it must be related to your nginx configuration, by default you can set every subdomain of localhost with port 8000, eg: http://m2.localhost:8000/, and don't forget the ending slash ;) )
-M2SETUP_ADMIN_FIRSTNAME : Magento back office admin account firstname
-M2SETUP_ADMIN_LASTNAME : Magento back office admin account lastname
-M2SETUP_ADMIN_EMAIL : Magento back office admin account email
-M2SETUP_ADMIN_USER : Magento back office admin account username
-M2SETUP_ADMIN_PASSWORD : Magento back office admin account password
-M2SETUP_CURRENCY : Default currency
-M2SETUP_LANGUAGE : Default language
-M2SETUP_TIMEZONE : Default timezone (in magento only not in php configuration)
-M2SETUP_USE_SAMPLE_DATA : Boolean to use or not magento sample data
-M2SETUP_USE_ARCHIVE : Boolean : yes = download magento archive and unzip it, no = use composer install (recommanded)
-M2SETUP_USE_COMPOSER_ENTERPRISE : Boolean use magento EE (Enteprise Edition)instead of CE (Community Edition)
-M2SETUP_VERSION : Magento 2.x.x version you want to install (2.2.0 for now)
+- M2SETUP_ADMIN_FIRSTNAME : Magento back office admin account firstname
+- M2SETUP_ADMIN_LASTNAME : Magento back office admin account lastname
+- M2SETUP_ADMIN_EMAIL : Magento back office admin account email
+- M2SETUP_ADMIN_USER : Magento back office admin account username
+- M2SETUP_ADMIN_PASSWORD : Magento back office admin account password
+- M2SETUP_CURRENCY : Default currency
+- M2SETUP_LANGUAGE : Default language
+- M2SETUP_TIMEZONE : Default timezone (in magento only not in php configuration)
+- M2SETUP_USE_SAMPLE_DATA : Boolean to use or not magento sample data
+- M2SETUP_USE_ARCHIVE : Boolean : yes = download magento archive and unzip it, no = use composer install (recommanded)
+- M2SETUP_USE_COMPOSER_ENTERPRISE : Boolean use magento EE (Enteprise Edition)instead of CE (Community Edition)
+- M2SETUP_VERSION : Magento 2.x.x version you want to install (2.2.0 for now)
