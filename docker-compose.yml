@@ -6,6 +6,8 @@ services:
     build: ./containers/nginx
     links:
       - phpfpm
+      - redis_cache
+      - redis_session
     volumes:
       - ./magento:/var/www/html
     ports:
@@ -41,5 +43,20 @@ services:
       - ./magento:/var/www/html
       - ./.composer:/var/www/.composer
     env_file: env/setup.env
+
+  redis_cache:
+    image: redis
+    expose:
+      - "6379"
+    sysctls:
+      net.core.somaxconn: 1024
+
+  redis_session:
+    image: redis
+    expose:
+      - "6379"
+    sysctls:
+      net.core.somaxconn: 1024
+
     
     
