@@ -1,4 +1,5 @@
 magento/
-.composer/*
+.composer/
 .idea/
+mysql/
 
