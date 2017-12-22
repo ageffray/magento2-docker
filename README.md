@@ -81,3 +81,92 @@ Please take care if you need to update the three lasts variables because they ar
 - M2SETUP_USE_ARCHIVE : Boolean : yes = download magento archive and unzip it, no = use composer install (recommanded)
 - M2SETUP_USE_COMPOSER_ENTERPRISE : Boolean use magento EE (Enteprise Edition)instead of CE (Community Edition)
 - M2SETUP_VERSION : Magento 2.x.x version you want to install (2.2.0 for now)
+
+## Use Redis cache
+
+To use redis for Magento cache edit your app/etc/env.php and add this few lines :
+
+```
+'cache' => array(
+    'frontend' => array(
+      'default' => array(
+        'backend' => 'Cm_Cache_Backend_Redis',
+        'backend_options' => array(
+          'server' => 'redis_cache',
+          'port' => '6379',
+          'persistent' => '', // Specify a unique string like "cache-db0" to enable persistent connections.
+          'database' => '0',
+          'password' => '',
+          'force_standalone' => '0', // 0 for phpredis, 1 for standalone PHP
+          'connect_retries' => '1', // Reduces errors due to random connection failures
+          'read_timeout' => '10', // Set read timeout duration
+          'automatic_cleaning_factor' => '0', // Disabled by default
+          'compress_data' => '1', // 0-9 for compression level, recommended: 0 or 1
+          'compress_tags' => '1', // 0-9 for compression level, recommended: 0 or 1
+          'compress_threshold' => '20480', // Strings below this size will not be compressed
+          'compression_lib' => 'gzip', // Supports gzip, lzf and snappy,
+          'use_lua' => '0' // Lua scripts should be used for some operations
+        )
+      ),
+      'page_cache' => array(
+        'backend' => 'Cm_Cache_Backend_Redis',
+        'backend_options' => array(
+          'server' => 'redis_cache',
+          'port' => '6379',
+          'persistent' => '', // Specify a unique string like "cache-db0" to enable persistent connections.
+          'database' => '1', // Separate database 1 to keep FPC separately
+          'password' => '',
+          'force_standalone' => '0', // 0 for phpredis, 1 for standalone PHP
+          'connect_retries' => '1', // Reduces errors due to random connection failures
+          'lifetimelimit' => '57600', // 16 hours of lifetime for cache record
+          'compress_data' => '0' // DISABLE compression for EE FPC since it already uses compression
+        )
+      )
+    )
+  ),
+````  
+
+Then flush Magento cache.
+
+## Use Redis for Session
+
+In app/etc/env.php replace the session configuration :
+
+````
+'session' => 
+  array (
+    'save' => 'files',
+  ),
+````
+
+by :
+
+````
+'session' =>
+    array (
+      'save' => 'redis',
+      'redis' =>
+        array (
+          'host' => 'redis_session',
+          'port' => '6379',
+          'password' => '',
+          'timeout' => '2.5',
+          'persistent_identifier' => '',
+          'database' => '2',
+          'compression_threshold' => '2048',
+          'compression_library' => 'gzip',
+          'log_level' => '1',
+          'max_concurrency' => '6',
+          'break_after_frontend' => '5',
+          'break_after_adminhtml' => '30',
+          'first_lifetime' => '600',
+          'bot_first_lifetime' => '60',
+          'bot_lifetime' => '7200',
+          'disable_locking' => '0',
+          'min_lifetime' => '60',
+          'max_lifetime' => '2592000'
+        )
+    ),
+````
+
+Then flush Magento cache.
