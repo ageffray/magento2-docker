@@ -2,9 +2,13 @@
 
 ## Composer Setup
 
+### Create Magento folder
+
+First of all create a folder named "magento" in root of projetct
+
 ### Authentication
 
-Please first setup Magento Marketplace authentication (details at <a href="http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html" target="_blank">http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html</a>).
+Then setup Magento Marketplace authentication (details at <a href="http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html" target="_blank">http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html</a>).
 
 Place your token as .composer/auth.json like :
 
