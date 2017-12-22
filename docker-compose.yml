@@ -11,7 +11,7 @@ services:
     volumes:
       - ./magento:/var/www/html
     ports:
-      - 8000:80
+      - 443:443
          
   phpfpm:
     build: ./containers/php
@@ -57,6 +57,16 @@ services:
       - "6379"
     sysctls:
       net.core.somaxconn: 1024
+
+  varnish:
+    build: ./containers/varnish
+    links:
+      - web
+    ports:
+      - 80:80
+      - 6082:6082
+    environment:
+      - CACHE_SIZE=256M
 
     
     
