@@ -170,3 +170,17 @@ by :
 ````
 
 Then flush Magento cache.
+
+## Configure Varnish
+
+To use varnish you need to configure Magento, go to Stores -> Configuration then Advanced -> Settings
+
+Configure Full Page Cache section like that :
+
+- Caching Application : Varnish Cache (recommanded)
+- TTL for public content : 86400 (or let "use system value" checked)
+### Varnish configuration
+- Access list : Fill it as you want to
+- Backend host : web
+- Backend port : 80
+- Grace period : 300
