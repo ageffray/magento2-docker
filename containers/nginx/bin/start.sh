@@ -40,6 +40,11 @@ cp /etc/nginx/external/*.conf /etc/nginx/conf.d/ 2> /dev/null > /dev/null
 
 ls -la /etc/nginx/conf.d
 
+# wait varnish before execute nginx
+while ! ping -c 1 varnish; do
+	sleep 1
+done
+
 # exec CMD
 echo ">> exec docker CMD"
 echo "$@"
