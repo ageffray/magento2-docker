@@ -12,6 +12,8 @@ if [ -d $BASE_DIR/.composer ]; then
   su -c "ln -s $BASE_DIR/.composer $SRC_DIR/var/composer_home" -s /bin/sh www-data
 fi
 
+pecl install xdebug
+
 echo "*/1 * * * * su -c \"/usr/local/bin/php $SRC_DIR/update/cron.php\" -s /bin/sh www-data > /proc/1/fd/2 2>&1" | crontab - \
   && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php -dmemory_limit=5G $SRC_DIR/bin/magento cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab - \
   && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php -dmemory_limit=5G $SRC_DIR/bin/magento setup:cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab -

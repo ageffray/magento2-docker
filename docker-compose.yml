@@ -1,6 +1,4 @@
-
-version: "3"
-
+version: '3'
 services:
   web:
     build: ./containers/nginx
@@ -9,64 +7,56 @@ services:
       - redis_cache
       - redis_session
     volumes:
-      - ./magento:/var/www/html
+      - './magento:/var/www/html'
     ports:
-      - 443:443
-         
+      - '443:443'
   phpfpm:
     build: ./containers/php
     volumes:
-      - ./magento:/var/www/html
+      - './magento:/var/www/html'
     links:
       - db
-    
-  db:
-    image: percona:5.6
-    volumes:
-      - ./mysql:/var/lib/mysql
     ports:
-      - 8001:3306
+      - '9001:9000'
+  db:
+    image: 'percona:5.6'
+    volumes:
+      - './mysql:/var/lib/mysql'
+    ports:
+      - '8001:3306'
     env_file: env/mysql.env
-        
   pma:
     image: phpmyadmin/phpmyadmin
     ports:
-     - 81:80
+      - '81:80'
     env_file: env/pma.env
- 
   setup:
     build: ./containers/php
     command: /usr/local/bin/mage-setup
     links:
       - db
     volumes:
-      - ./magento:/var/www/html
-      - ./.composer:/var/www/.composer
+      - './magento:/var/www/html'
+      - './.composer:/var/www/.composer'
     env_file: env/setup.env
-
   redis_cache:
     image: redis
     expose:
-      - "6379"
+      - '6379'
     sysctls:
       net.core.somaxconn: 1024
-
   redis_session:
     image: redis
     expose:
-      - "6379"
+      - '6379'
     sysctls:
       net.core.somaxconn: 1024
-
   varnish:
     build: ./containers/varnish
     links:
       - web
     ports:
-      - 80:80
-      - 6082:6082
+      - '80:80'
+      - '6082:6082'
     environment:
       - CACHE_SIZE=256M
-
-    
-    
